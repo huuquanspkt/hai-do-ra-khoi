@@ -29,19 +29,29 @@ export async function taiDuBao(viTri) {
   const urlDong = `https://marine-api.open-meteo.com/v1/marine?${q}` +
     `&current=ocean_current_velocity,ocean_current_direction`;
 
+  // Máy chủ quá tải (503) thì hỏi bản gọn hơn (bỏ phần theo giờ) để vẫn có số liệu
+  const urlGioGon = urlGio.replace(/&hourly=[^&]*/, "");
+  const urlSongGon = urlSong.replace(/&hourly=[^&]*/, "");
   const [gio, song, dong] = await Promise.all([
-    layJson(urlGio), layJson(urlSong), layJson(urlDong).catch(() => null),
+    layJson(urlGio).catch(() => layJson(urlGioGon)),
+    layJson(urlSong).catch(() => layJson(urlSongGon)),
+    layJson(urlDong).catch(() => null),
   ]);
   if (!gio?.daily || !song?.daily) throw new Error("Dữ liệu dự báo thiếu");
   const luc = Date.now();
   return { luc, hanDung: luc + TT.hanGoiNgay * 86400e3, viTri, gio, song, dong };
 }
 
-async function layJson(url) {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  return r.json();
+/** Tải JSON, thử lại tối đa 3 lần khi máy chủ bận (503/429) hoặc rớt mạng. */
+async function layJson(url, lanThu = 0) {
+  let r;
+  try { r = await fetch(url); }
+  catch (e) { if (lanThu < 2) { await cho(1500 * (lanThu + 1)); return layJson(url, lanThu + 1); } throw e; }
+  if (r.ok) return r.json();
+  if ((r.status === 503 || r.status === 429) && lanThu < 2) { await cho(2000 * (lanThu + 1)); return layJson(url, lanThu + 1); }
+  throw new Error(`HTTP ${r.status}`);
 }
+const cho = ms => new Promise(r => setTimeout(r, ms));
 
 /** Số ngày có trong gói. */
 export function soNgay(goi) { return goi?.gio?.daily?.time?.length || 0; }
@@ -85,6 +95,7 @@ export function dongChayHienTai(goi) {
 /** Dự báo theo giờ của một ngày (24 dòng), dùng trong bảng chi tiết. */
 export function theoGio(goi, i) {
   const g = goi.gio.hourly, s = goi.song.hourly, out = [];
+  if (!g?.time) return out; // gói gọn (máy chủ bận) không có số theo giờ
   const ngay = goi.gio.daily.time[i];
   for (let k = 0; k < g.time.length; k++) {
     if (!g.time[k].startsWith(ngay)) continue;

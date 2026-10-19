@@ -67,6 +67,8 @@ async function khoiDong() {
   hienThoiTiet();
   capNhatThoiTiet();
   window.addEventListener("online", () => capNhatThoiTiet(true));
+  // Chưa có dự báo (máy chủ bận, mất sóng lúc mở) thì cứ 2 phút thử lại một lần
+  setInterval(() => { if (!S.goiTau) capNhatThoiTiet(true); }, 2 * 60 * 1000);
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(() => {});
 }
 
@@ -180,7 +182,7 @@ async function capNhatThoiTiet(ep = false) {
   try {
     S.goiTau = await TT.taiDuBao(tai); luu("goi-tau");
     S.tinBao = (await TT.hoiTinBao()) || { tuDuBao: true, luc: Date.now() }; luu("tin-bao");
-  } catch { if (!g) GD.thanhBao("canh-bao", "Chưa tải được dự báo. Cần có mạng ở lần đầu."); }
+  } catch { dangTaiTT = false; if (!g) { GD.thanhBao("canh-bao", "Máy chủ dự báo đang bận — 2 phút nữa app tự hỏi lại"); veLai(); } return; }
   dangTaiTT = false;
   hienThoiTiet(); veLai();
 }
@@ -207,7 +209,7 @@ function hienThoiTiet() {
     if (dg.muc === "nguy-hiem") GD.thanhBao("nguy-hiem", `Gió giật cấp ${dg.capGiat}, sóng ${dg.songM.toFixed(1)} m trong 2 ngày tới — cân nhắc vào bờ (${gioHoi})`);
     else if (dg.muc === "canh-bao") GD.thanhBao("canh-bao", `Biển động: gió giật cấp ${dg.capGiat}, sóng ${dg.songM.toFixed(1)} m (${gioHoi})`);
     else GD.thanhBao("tot", `Không có tin bão — ${gioHoi}`);
-  } else GD.thanhBao("canh-bao", "Chưa có tin bão trong máy — cần mạng để hỏi");
+  } else GD.thanhBao("canh-bao", navigator.onLine ? "Đang hỏi tin bão và dự báo…" : "Chưa có tin bão trong máy — cần mạng để hỏi");
 
   // Tab ngày + dải sóng gió
   if (!g) { GD.tabNgay([], 0, () => {}); GD.songGio("Chưa có dữ liệu sóng gió"); return; }

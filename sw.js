@@ -5,7 +5,7 @@
 //   haido-o-ban-do-v1 : ô bản đồ (tile) — không xoá khi cập nhật app
 //   (dự báo thời tiết do app tự lưu bằng localStorage, không qua đây)
 // =====================================================================
-const VO = "haido-vo-v1";
+const VO = "haido-vo-v2";
 const O_BAN_DO = "haido-o-ban-do-v1";
 const TOI_DA_O = 20000;
 
