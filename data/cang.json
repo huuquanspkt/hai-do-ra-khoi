@@ -1,0 +1,12 @@
+{
+  "ghiChu": "Cảng cá dùng làm điểm xuất phát khi tính lộ trình và để đặt 'Cảng nhà'. Toạ độ gần đúng (cửa cảng).",
+  "danhSach": [
+    { "ten": "Cảng Thọ Quang (Đà Nẵng)", "lat": 16.10, "lon": 108.22 },
+    { "ten": "Cảng Sa Kỳ (Quảng Ngãi)",  "lat": 15.22, "lon": 108.92 },
+    { "ten": "Cảng Tam Quan",            "lat": 14.58, "lon": 109.07 },
+    { "ten": "Cảng Quy Nhơn",            "lat": 13.76, "lon": 109.27 },
+    { "ten": "Cảng Hòn Rớ (Nha Trang)",  "lat": 12.20, "lon": 109.21 },
+    { "ten": "Cảng Phan Thiết",          "lat": 10.92, "lon": 108.10 },
+    { "ten": "Cảng Vũng Tàu",            "lat": 10.34, "lon": 107.08 }
+  ]
+}

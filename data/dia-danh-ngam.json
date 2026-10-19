@@ -1,0 +1,25 @@
+{
+  "ghiChu": [
+    "Tên địa danh đáy biển (núi ngầm, đồi ngầm, thung lũng ngầm…) giúp định vị ngư trường.",
+    "Nguồn tên: Thông tư 33/2024 của Bộ Tài nguyên và Môi trường về địa danh đáy biển.",
+    "VỊ TRÍ TRONG TỆP NÀY LÀ GẦN ĐÚNG, ƯỚC LƯỢNG TỪ BẢN ĐỒ — cần đối chiếu toạ độ chính thức trước khi dùng thật.",
+    "loai: nui (núi ngầm ▲) | doi (đồi ngầm ◠) | thung-lung (thung lũng ngầm ⊔) | hem (hẻm núi ngầm ⊔) | vach (vách dựng ngầm) | bai (bãi ngầm) | da (đá)"
+  ],
+  "danhSach": [
+    { "ten": "Thung lũng ngầm Bình Minh", "loai": "thung-lung", "lat": 15.60, "lon": 110.55 },
+    { "ten": "Đồi ngầm Đức Phổ",          "loai": "doi",        "lat": 15.15, "lon": 110.95 },
+    { "ten": "Bãi ngầm Ốc Tai Voi",       "loai": "bai",        "lat": 15.95, "lon": 111.70 },
+    { "ten": "Núi ngầm Bồng Sơn",         "loai": "nui",        "lat": 14.30, "lon": 111.05 },
+    { "ten": "Đồi ngầm Xuân Đài",         "loai": "doi",        "lat": 13.95, "lon": 111.05 },
+    { "ten": "Vách dựng ngầm Nhơn Hải",   "loai": "vach",       "lat": 13.85, "lon": 109.75 },
+    { "ten": "Đồi ngầm Bình Ngọc",        "loai": "doi",        "lat": 13.55, "lon": 110.60 },
+    { "ten": "Các hẻm núi ngầm Ninh Vân", "loai": "hem",        "lat": 12.90, "lon": 109.70 },
+    { "ten": "Đồi ngầm Công Hải",         "loai": "doi",        "lat": 12.50, "lon": 110.55 },
+    { "ten": "Núi ngầm Lộc Thọ",          "loai": "nui",        "lat": 12.40, "lon": 111.15 },
+    { "ten": "Các hẻm núi ngầm Phú Hài",  "loai": "hem",        "lat": 12.25, "lon": 109.70 },
+    { "ten": "Bãi Tư Chính",              "loai": "bai",        "lat": 7.55,  "lon": 109.85 },
+    { "ten": "Bãi Phúc Tần",              "loai": "bai",        "lat": 8.15,  "lon": 110.60 },
+    { "ten": "Đá Lát",                    "loai": "da",         "lat": 8.67,  "lon": 111.67 },
+    { "ten": "Đá Tiên Nữ",                "loai": "da",         "lat": 8.86,  "lon": 114.65 }
+  ]
+}

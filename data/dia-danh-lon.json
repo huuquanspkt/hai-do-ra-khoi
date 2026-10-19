@@ -1,0 +1,10 @@
+{
+  "ghiChu": "Nhãn vùng biển lớn, chỉ để hiển thị. Vị trí là tâm nhãn, không phải toạ độ pháp lý.",
+  "danhSach": [
+    { "ten": "VỊNH BẮC BỘ", "lat": 19.8, "lon": 107.2 },
+    { "ten": "BIỂN ĐÔNG", "lat": 14.3, "lon": 113.2 },
+    { "ten": "VỊNH THÁI LAN", "lat": 9.0, "lon": 102.0 },
+    { "ten": "QUẦN ĐẢO HOÀNG SA", "phu": "TP. Đà Nẵng — Việt Nam", "lat": 16.5, "lon": 112.0 },
+    { "ten": "QUẦN ĐẢO TRƯỜNG SA", "phu": "Tỉnh Khánh Hòa — Việt Nam", "lat": 9.6, "lon": 114.0 }
+  ]
+}

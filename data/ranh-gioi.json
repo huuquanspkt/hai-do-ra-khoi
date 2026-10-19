@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "ghiChu": [
+    "TOẠ ĐỘ MẪU ĐỂ THỬ APP — KHÔNG PHẢI RANH GIỚI PHÁP LÝ.",
+    "Khi dùng thật, thay bằng toạ độ trong phụ lục Nghị định 26/2019/NĐ-CP (tuyến bờ, tuyến lộng, vùng khơi) và dữ liệu VMS của Chi cục Thủy sản.",
+    "Cấu trúc mỗi vùng theo bảng vms_zones: id, name, color, style, default_on, is_border, geojson.",
+    "style: 'dash' (nét đứt) | 'solid' (nét liền). is_border: true = ranh giới ngoài, dùng để tính 'hải lý tới ranh giới'."
+  ],
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "id": "tuyen-bo", "name": "Tuyến bờ (MẪU)", "color": "#e65100", "style": "dash", "default_on": true, "is_border": false,
+        "moTa": "Vùng ven bờ · tàu dưới 12 m · tham khảo" },
+      "geometry": { "type": "LineString", "coordinates": [
+        [107.30, 17.20], [107.95, 16.60], [108.45, 16.05], [108.80, 15.45], [109.05, 14.80],
+        [109.35, 14.05], [109.45, 13.30], [109.40, 12.50], [109.20, 11.80], [108.60, 11.10], [107.80, 10.60]
+      ] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "tuyen-long", "name": "Tuyến lộng (MẪU)", "color": "#ef6c00", "style": "dash", "default_on": true, "is_border": false,
+        "moTa": "NĐ 26/2019 · tàu 12–<15 m · tham khảo" },
+      "geometry": { "type": "LineString", "coordinates": [
+        [107.70, 17.30], [108.35, 16.70], [108.90, 16.10], [109.25, 15.50], [109.50, 14.85],
+        [109.80, 14.10], [109.90, 13.30], [109.85, 12.50], [109.65, 11.80], [109.05, 11.05], [108.20, 10.50]
+      ] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "ranh-ngoai", "name": "Ranh giới ngoài khơi (MẪU)", "color": "#c62828", "style": "dash", "default_on": true, "is_border": true,
+        "moTa": "Ranh ngoài vùng được phép đánh bắt · viền nét đứt · tham khảo" },
+      "geometry": { "type": "LineString", "coordinates": [
+        [110.60, 18.20], [111.20, 17.00], [111.80, 15.50], [112.30, 14.00], [112.60, 12.50],
+        [112.60, 11.00], [112.00, 9.50], [111.20, 8.20], [110.00, 7.20]
+      ] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "vung-chu-y", "name": "Cần chú ý khi đánh bắt (MẪU)", "color": "#f9a825", "style": "solid", "default_on": true, "is_border": false,
+        "moTa": "Khu vực nhạy cảm · viền vàng · tham khảo" },
+      "geometry": { "type": "Polygon", "coordinates": [[
+        [111.20, 17.20], [112.80, 17.30], [113.00, 16.20], [112.40, 15.60], [111.30, 15.90], [111.20, 17.20]
+      ]] }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "ghiChu": [
+    "Khu neo đậu tránh trú bão cho tàu cá. Danh mục chính thức: Quyết định 582/QĐ-TTg năm 2024 của Thủ tướng Chính phủ.",
+    "Toạ độ dưới đây là vị trí cửa khu neo đậu, GẦN ĐÚNG — cần đối chiếu với quyết định và hải đồ trước khi dùng thật.",
+    "cap: 'vung' (cấp vùng, tàu lớn) | 'tinh' (cấp tỉnh)"
+  ],
+  "danhSach": [
+    { "ten": "Cửa Việt",            "tinh": "Quảng Trị",  "cap": "tinh", "lat": 16.90, "lon": 107.18 },
+    { "ten": "Thọ Quang",           "tinh": "Đà Nẵng",    "cap": "vung", "lat": 16.10, "lon": 108.22 },
+    { "ten": "Lý Sơn",              "tinh": "Quảng Ngãi", "cap": "tinh", "lat": 15.38, "lon": 109.11 },
+    { "ten": "Sa Huỳnh",            "tinh": "Quảng Ngãi", "cap": "tinh", "lat": 14.66, "lon": 109.08 },
+    { "ten": "Tam Quan",            "tinh": "Gia Lai",    "cap": "vung", "lat": 14.58, "lon": 109.07 },
+    { "ten": "Đề Gi",               "tinh": "Gia Lai",    "cap": "tinh", "lat": 14.13, "lon": 109.20 },
+    { "ten": "Hòn Rớ (Nha Trang)",  "tinh": "Khánh Hòa",  "cap": "vung", "lat": 12.20, "lon": 109.21 },
+    { "ten": "Ninh Chữ",            "tinh": "Khánh Hòa",  "cap": "tinh", "lat": 11.60, "lon": 109.03 },
+    { "ten": "Phan Thiết",          "tinh": "Lâm Đồng",   "cap": "vung", "lat": 10.92, "lon": 108.10 },
+    { "ten": "Sông Đốc",            "tinh": "Cà Mau",     "cap": "vung", "lat": 9.03,  "lon": 104.82 }
+  ]
+}

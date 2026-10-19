@@ -1,0 +1,14 @@
+{
+  "ghiChu": [
+    "Đèn biển chính dọc bờ. Nguồn chính thức: Danh mục báo hiệu hàng hải của Tổng công ty Bảo đảm an toàn hàng hải Việt Nam.",
+    "Toạ độ GẦN ĐÚNG — đặc tính chớp (ví dụ 'Ch.Tr 10s') cần lấy từ Thông báo hàng hải mới nhất."
+  ],
+  "danhSach": [
+    { "ten": "Đèn biển Tiên Sa (Sơn Trà)", "lat": 16.12, "lon": 108.33, "tamNhinHl": 23 },
+    { "ten": "Đèn biển Lý Sơn",            "lat": 15.38, "lon": 109.15, "tamNhinHl": 20 },
+    { "ten": "Đèn biển Cù Lao Xanh",       "lat": 13.62, "lon": 109.36, "tamNhinHl": 27 },
+    { "ten": "Đèn biển Mũi Đại Lãnh",      "lat": 12.89, "lon": 109.46, "tamNhinHl": 27 },
+    { "ten": "Đèn biển Hòn Chút (Nha Trang)", "lat": 12.18, "lon": 109.23, "tamNhinHl": 18 },
+    { "ten": "Đèn biển Mũi Kê Gà",         "lat": 10.69, "lon": 107.98, "tamNhinHl": 22 }
+  ]
+}

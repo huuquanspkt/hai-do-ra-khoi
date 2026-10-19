@@ -1,0 +1,16 @@
+{
+  "name": "Hải Đồ Ra Khơi",
+  "short_name": "Hải Đồ",
+  "description": "Hải đồ, định vị, dự báo sóng gió và dẫn đường cho tàu cá — bản mẫu.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "vi",
+  "background_color": "#14324f",
+  "theme_color": "#14324f",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
