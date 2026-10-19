@@ -1,0 +1,19 @@
+{
+  "ghiChu": [
+    "Trạm con nước (thuỷ triều) dọc bờ. Giờ nước lớn/nước ròng lấy từ dự báo mực nước biển của Open-Meteo tại toạ độ trạm (mô hình toàn cầu, lệch so với bảng thuỷ triều chính thức có thể tới 30–60 phút).",
+    "Bảng thuỷ triều chính thức: Tổng cục Khí tượng Thuỷ văn / UHSLC. Toạ độ gần đúng."
+  ],
+  "danhSach": [
+    { "ten": "Hòn Dấu",     "tinh": "Hải Phòng",  "lat": 20.67, "lon": 106.81 },
+    { "ten": "Hòn Ngư",     "tinh": "Nghệ An",    "lat": 18.80, "lon": 105.77 },
+    { "ten": "Cồn Cỏ",      "tinh": "Quảng Trị",  "lat": 17.16, "lon": 107.34 },
+    { "ten": "Sơn Trà",     "tinh": "Đà Nẵng",    "lat": 16.10, "lon": 108.22 },
+    { "ten": "Quy Nhơn",    "tinh": "Gia Lai",    "lat": 13.76, "lon": 109.25 },
+    { "ten": "Nha Trang",   "tinh": "Khánh Hòa",  "lat": 12.21, "lon": 109.20 },
+    { "ten": "Vũng Tàu",    "tinh": "TP.HCM",     "lat": 10.34, "lon": 107.07 },
+    { "ten": "Côn Đảo",     "tinh": "TP.HCM",     "lat": 8.68,  "lon": 106.60 },
+    { "ten": "Rạch Giá",    "tinh": "An Giang",   "lat": 10.02, "lon": 105.08 },
+    { "ten": "Phú Quốc",    "tinh": "An Giang",   "lat": 10.22, "lon": 103.96 },
+    { "ten": "Trường Sa",   "tinh": "Khánh Hòa",  "lat": 8.64,  "lon": 111.92 }
+  ]
+}

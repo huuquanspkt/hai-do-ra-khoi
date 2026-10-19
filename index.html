@@ -2,11 +2,11 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, interactive-widget=resizes-content">
   <meta name="theme-color" content="#14324f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="Hải đồ, định vị, dự báo sóng gió và dẫn đường cho tàu cá — bản mẫu tham khảo.">
+  <meta name="description" content="Hải đồ, định vị, dự báo cá và sóng gió, dẫn đường, giấy tờ tàu, giá cá — bạn đồng hành của ngư dân.">
   <title>Hải Đồ Ra Khơi</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -16,79 +16,154 @@
 </head>
 <body>
 
-<!-- Bản đồ phủ toàn màn hình -->
+<!-- ============ MÀN RA KHƠI: bản đồ và các lớp nổi ============ -->
 <div id="ban-do" aria-label="Bản đồ biển"></div>
 
-<!-- Thanh tin bão (ưu tiên cao nhất) -->
-<div id="thanh-bao" class="thanh-bao" role="status">
-  <span class="dau" id="thanh-bao-dau">✓</span>
-  <span id="thanh-bao-chu">Đang hỏi tin bão…</span>
+<div id="lop-ra-khoi">
+  <!-- Thanh tin bão -->
+  <div id="thanh-bao" class="thanh-bao" role="status">
+    <span class="dau" id="thanh-bao-dau">✓</span>
+    <span id="thanh-bao-chu">Đang hỏi tin bão…</span>
+  </div>
+
+  <!-- Bảng dẫn đường (hiện khi "Bắt đầu chạy") -->
+  <section id="bang-chay" class="bang-chay" hidden aria-label="Bảng dẫn đường">
+    <div class="dau-bang" id="bang-chay-keo" title="Giữ và kéo để dời bảng dẫn đường">
+      <svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h4a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg>
+      <b id="bang-chay-tieu-de">Đang chạy</b><span class="vach"></span>
+      <button id="bang-chay-dung" class="nut-nho">Dừng</button>
+      <button id="bang-chay-an" class="nut-nho tron" aria-label="Ẩn bảng dẫn đường">—</button>
+    </div>
+    <div class="hang-nut">
+      <button id="bang-chay-giong" class="nut-nho rong">🔊 Giọng: đầy đủ</button>
+      <button id="bang-chay-rung" class="nut-nho rong">Báo rung: đang bật</button>
+    </div>
+    <div id="bang-chay-noi" class="dong-noi"><span>🔊</span><span id="bang-chay-noi-chu">Bắt đầu dẫn đường.</span></div>
+    <div id="bang-chay-canh-bao" class="hop-canh-bao" hidden><span>⚠</span><span id="bang-chay-canh-bao-chu"></span></div>
+  </section>
+  <button id="bang-chay-thu" class="bang-chay-thu" hidden aria-label="Mở bảng dẫn đường">
+    <svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h4a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg><b>Đang chạy</b>
+  </button>
+
+  <!-- Thẻ vị trí: TÀU và TRỎ (điểm đang xem) -->
+  <section id="the-vi-tri" class="the-vi-tri" aria-label="Vị trí tàu và điểm đang xem">
+    <button id="the-tau" class="o-the" aria-label="Vị trí tàu">
+      <span class="bieu-tuong">⛵</span><span class="nhan">TÀU</span>
+      <span class="gia-tri" id="vi-tri-tau">Bật định vị</span>
+    </button>
+    <button id="the-tro" class="o-the" aria-label="Điểm đang xem">
+      <span class="bieu-tuong tro">📍</span><span class="nhan">TRỎ</span>
+      <span class="gia-tri" id="vi-tri-tro">Chạm vào bản đồ</span>
+    </button>
+  </section>
+
+  <!-- Cột nút phải -->
+  <nav id="cot-nut" class="cot-nut" aria-label="Điều khiển bản đồ">
+    <button id="nut-lop" aria-label="Hiện lớp bản đồ">
+      <svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 13 10 5 10-5"/></svg><span id="nut-lop-chu">Lớp bản đồ</span>
+    </button>
+    <button id="nut-gps" aria-label="Vị trí của tôi (GPS)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span id="nut-gps-chu">Bật GPS</span>
+    </button>
+    <button id="nut-chay" aria-label="Bắt đầu chạy — máy đọc cảnh báo theo vị trí tàu">
+      <svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg><span id="nut-chay-chu">Bắt đầu chạy</span>
+    </button>
+    <button id="nut-den-diem" class="an-khi-chay" aria-label="Đến điểm — nhập toạ độ">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Đến điểm</span>
+    </button>
+    <button id="nut-diem-luu" class="an-khi-chay" aria-label="Điểm đã lưu">
+      <svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9L12 3z"/></svg><span>Điểm đã lưu</span>
+    </button>
+    <button id="nut-lo-trinh" class="an-khi-chay" aria-label="Dẫn đường — mở bảng tính lộ trình">
+      <svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h4a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg><span>Lộ trình</span>
+    </button>
+    <!-- Các nhóm lớp, hiện khi mở "Lớp bản đồ" -->
+    <div id="nhom-lop" class="nhom-lop" hidden>
+      <button data-nhom="hai-do"><svg viewBox="0 0 24 24"><path d="M3 15c3-3 6 3 9 0s6-3 9 0"/><path d="M12 3v9M8 8l4 4 4-4"/></svg>Hải đồ</button>
+      <button data-nhom="ngu-truong"><svg viewBox="0 0 24 24"><path d="M3 12c3-4 7-6 11-6l4 6-4 6c-4 0-8-2-11-6z"/><path d="m18 6 3 6-3 6"/></svg>Ngư trường</button>
+      <button data-nhom="thoi-tiet"><svg viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1 0-8 6 6 0 0 1 11.5 1.5A3.5 3.5 0 0 1 18 17z"/></svg>Thời tiết</button>
+      <button data-nhom="cong-cu"><svg viewBox="0 0 24 24"><path d="m3 17 14-14 4 4L7 21H3z"/><path d="m14 6 4 4"/></svg>Công cụ</button>
+      <button data-nhom="cai-dat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Cài đặt</button>
+    </div>
+  </nav>
+
+  <!-- Chú giải dự báo cá -->
+  <div id="chu-giai-ca" class="chu-giai-ca" hidden>
+    <span><i style="background:#43a047"></i>Thấp</span><span><i style="background:#f9a825"></i>Trung bình</span><span><i style="background:#e53935"></i>Cao</span>
+  </div>
+
+  <!-- Thanh đo khoảng cách -->
+  <div id="thanh-do" class="thanh-do" hidden>
+    <span id="thanh-do-chu">Chạm 2 điểm trên bản đồ</span>
+    <button id="thanh-do-xoa" class="nut-nho">Xoá</button><button id="thanh-do-xong" class="nut-nho dam">Xong</button>
+  </div>
+
+  <!-- Sen Biển -->
+  <div id="sen-bien" class="sen-bien">
+    <div id="sen-bien-bong" class="bong-noi" hidden>
+      <button id="sen-bien-chu-nut" class="nut-nho tron" aria-label="Nhắn chữ">💬</button>
+      <span id="sen-bien-bong-chu"></span>
+      <form id="sen-bien-form" hidden><input id="sen-bien-nhap" placeholder="Gõ chỗ muốn tới…" aria-label="Nhắn chữ cho Sen Biển"><button class="nut-nho dam">Đi</button></form>
+    </div>
+    <button id="sen-bien-nut" aria-label="Sen Biển — nói chỗ muốn tới">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M8 34c6-12 16-18 30-18 8 0 14 4 18 10l-4 8 4 8c-4 6-10 10-18 10-14 0-24-6-30-18z" fill="#1e8fd6"/>
+        <path d="M38 16c3-6 8-8 12-8-2 4-2 8 0 12z" fill="#e8632b"/>
+        <path d="M56 26c4 2 6 6 6 8s-2 6-6 8c1-5 1-11 0-16z" fill="#1565c0"/>
+        <circle cx="22" cy="31" r="4" fill="#fff"/><circle cx="23" cy="31" r="2" fill="#14324f"/>
+        <path d="M14 38c4 3 8 3 12 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M4 52c6-6 12-6 18 0s12 6 18 0" stroke="#e9f3fb" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Nút thông tin nguồn -->
+  <button id="nut-thong-tin" class="nut-thong-tin" aria-label="Nguồn dữ liệu">i</button>
+
+  <!-- Nhãn nổi -->
+  <div id="nhan-ranh-gioi" class="nhan-noi an-toan" hidden></div>
+  <button id="goi-ngoai-tuyen" class="nhan-noi" aria-label="Xem dữ liệu đã lưu để đi biển" hidden></button>
+
+  <!-- Dải dưới -->
+  <footer class="dai-duoi" id="dai-duoi">
+    <!-- Thanh thời gian cho lớp màu -->
+    <div id="thanh-thoi-gian" class="thanh-thoi-gian" hidden>
+      <div class="dong-dau"><b id="ttg-tieu-de">Gió · Hôm nay · 0h</b><button id="ttg-tat" class="nut-nho">Tắt lớp</button></div>
+      <input id="ttg-truot" type="range" min="0" max="63" value="0" aria-label="Chọn giờ xem">
+      <div id="ttg-ngay" class="ttg-ngay"></div>
+      <div id="ttg-chu-giai"></div>
+    </div>
+    <!-- Bảng gió sóng tại điểm -->
+    <div id="bang-song-gio" class="bang-song-gio">
+      <div class="dong-dau">
+        <span id="sg-trang-thai" class="trang-thai"><i></i><b id="sg-trang-thai-chu">Đang tải…</b></span>
+        <span class="toa-do" id="sg-toa-do"></span>
+      </div>
+      <button id="song-gio" class="song-gio" aria-label="Xem chi tiết gió sóng tại điểm đang xem">
+        <span class="i">i</span><span class="mui-ten" id="song-gio-mui-ten" hidden>↑</span>
+        <span class="chu" id="song-gio-chu">Chưa có dữ liệu sóng gió</span>
+      </button>
+      <div id="tab-ngay" class="tab-ngay" role="tablist" aria-label="Chọn ngày xem dự báo"></div>
+    </div>
+  </footer>
 </div>
 
-<!-- Thẻ vị trí tàu và điểm đích -->
-<section id="the-vi-tri" class="the-vi-tri" aria-label="Vị trí tàu và điểm đích">
-  <span class="nhan">TÀU</span>
-  <span class="gia-tri" id="vi-tri-tau">Chưa bật GPS</span>
-  <span class="nhan">ĐÍCH</span>
-  <span class="gia-tri" id="vi-tri-dich">Chưa chọn</span>
-  <span class="phu" id="vi-tri-phu">Chạm "Bật GPS" để bắt đầu</span>
-</section>
+<!-- ============ CÁC MÀN KHÁC (Trang chủ, Tàu cá, Bạn thuyền, Giao dịch) ============ -->
+<section id="man-trang" class="man-trang" hidden><div id="man-trang-noi-dung" class="noi-dung-trang"></div></section>
 
-<!-- Cột nút bên phải -->
-<nav id="cot-nut" class="cot-nut" aria-label="Điều khiển bản đồ">
-  <button id="nut-lop" aria-label="Hiện lớp bản đồ">
-    <svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 13 10 5 10-5"/></svg>
-    <span>Lớp bản đồ</span>
-  </button>
-  <button id="nut-gps" aria-label="Vị trí của tôi (GPS)">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-    <span id="nut-gps-chu">Bật GPS</span>
-  </button>
-  <button id="nut-chay" aria-label="Bắt đầu chạy — máy đọc cảnh báo theo vị trí tàu">
-    <svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
-    <span id="nut-chay-chu">Bắt đầu chạy</span>
-  </button>
-  <button id="nut-den-diem" aria-label="Đến điểm — nhập toạ độ">
-    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-    <span>Đến điểm</span>
-  </button>
-  <button id="nut-diem-luu" aria-label="Điểm đã lưu">
-    <svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9L12 3z"/></svg>
-    <span>Điểm đã lưu</span>
-  </button>
-  <button id="nut-lo-trinh" aria-label="Dẫn đường — mở bảng tính lộ trình">
-    <svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h4a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg>
-    <span>Lộ trình</span>
-  </button>
+<!-- Thanh tab chính -->
+<nav class="thanh-tab" aria-label="Điều hướng chính">
+  <button data-tab="trang-chu"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>Trang chủ</button>
+  <button data-tab="ra-khoi" class="bat"><svg viewBox="0 0 24 24"><path d="M3 12c3-4 7-6 11-6l4 6-4 6c-4 0-8-2-11-6z"/><path d="m18 6 3 6-3 6"/></svg>Ra khơi</button>
+  <button data-tab="tau-ca"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14M5 13a7 7 0 0 0 14 0M3 13h4M17 13h4"/></svg>Tàu cá</button>
+  <button data-tab="ban-thuyen"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15a5 5 0 0 1 6 5"/></svg>Bạn thuyền</button>
+  <button data-tab="giao-dich"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5a4 4 0 0 0-4-2.5h-2a3.5 3.5 0 0 0 0 7h2a3.5 3.5 0 0 1 0 7h-2a4 4 0 0 1-4-2.5"/></svg>Giao dịch</button>
 </nav>
 
-<!-- Nhãn nổi -->
-<div id="nhan-ranh-gioi" class="nhan-noi an-toan" hidden></div>
-<button id="goi-ngoai-tuyen" class="nhan-noi" aria-label="Xem dữ liệu đã lưu để đi biển" hidden></button>
-
-<!-- Dải dưới: tab ngày, sóng gió, thanh tab chính -->
-<footer class="dai-duoi">
-  <div id="tab-ngay" class="tab-ngay" role="tablist" aria-label="Chọn ngày xem dự báo"></div>
-  <button id="song-gio" class="song-gio" aria-label="Xem chi tiết gió sóng tại điểm đang xem">
-    <span class="i">i</span>
-    <span class="mui-ten" id="song-gio-mui-ten" hidden>↑</span>
-    <span class="chu" id="song-gio-chu">Chưa có dữ liệu sóng gió</span>
-  </button>
-  <nav class="thanh-tab" aria-label="Điều hướng chính">
-    <button data-tab="trang-chu"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>Trang chủ</button>
-    <button data-tab="ra-khoi" class="bat"><svg viewBox="0 0 24 24"><path d="M3 12c3-4 7-6 11-6l4 6-4 6c-4 0-8-2-11-6z"/><path d="m18 6 3 6-3 6"/></svg>Ra khơi</button>
-    <button data-tab="tau-ca"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14M5 13a7 7 0 0 0 14 0M3 13h4M17 13h4"/></svg>Tàu cá</button>
-    <button data-tab="ban-thuyen"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15a5 5 0 0 1 6 5"/></svg>Bạn thuyền</button>
-    <button data-tab="giao-dich"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5a4 4 0 0 0-4-2.5h-2a3.5 3.5 0 0 0 0 7h2a3.5 3.5 0 0 1 0 7h-2a4 4 0 0 1-4-2.5"/></svg>Giao dịch</button>
-  </nav>
-</footer>
-
-<!-- Bảng trượt dùng chung cho mọi hộp thoại -->
+<!-- Bảng trượt dùng chung -->
 <section id="bang-truot" class="bang-truot" role="dialog" aria-modal="false" hidden></section>
 
-<!-- Thư viện bản đồ (UMD, định nghĩa biến toàn cục L) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<!-- Mã của app (ES module, tự chạy sau khi trang tải xong) -->
 <script type="module" src="js/app.js"></script>
 </body>
 </html>

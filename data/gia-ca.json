@@ -1,0 +1,20 @@
+{
+  "ghiChu": "Giá tham khảo tổng hợp từ báo chí và chợ đầu mối, cập nhật thủ công. Giá thật tại cảng có thể khác. Bà con ghi giá thật bằng nút 'Ghi giá hôm nay'.",
+  "ngayCapNhat": "2026-10-10",
+  "dauDO": { "ten": "Dầu DO (Petrolimex)", "ganKho": 28800, "xaKho": 29370, "donVi": "đ/lít" },
+  "danhSach": [
+    { "ten": "Cá ngừ đại dương",   "thap": 100000, "cao": 140000, "xuHuong": "on",   "vung": "Bình Định, Phú Yên, Khánh Hòa", "ghiChu": "Cá trên 30 kg, câu tay được giá hơn" },
+    { "ten": "Cá ngừ sọc dưa (cá ngừ vằn)", "thap": 20000, "cao": 30000, "xuHuong": "giam", "vung": "Miền Trung", "ghiChu": "Giá thấp vì quy định cá phải dài từ 50 cm" },
+    { "ten": "Cá thu",              "thap": 110000, "cao": 160000, "xuHuong": "tang", "vung": "", "ghiChu": "Cá to trên 3 kg được giá hơn" },
+    { "ten": "Cá nục",              "thap": 25000,  "cao": 45000,  "xuHuong": "on",   "vung": "", "ghiChu": "Nục suôn được giá hơn nục gai" },
+    { "ten": "Cá cơm",              "thap": 15000,  "cao": 30000,  "xuHuong": "on",   "vung": "", "ghiChu": "Cá cơm than làm mắm được giá cao" },
+    { "ten": "Cá chim trắng biển",  "thap": 130000, "cao": 200000, "xuHuong": "tang", "vung": "", "ghiChu": "Hàng tươi, còn nguyên vảy bán được giá" },
+    { "ten": "Mực ống",             "thap": 120000, "cao": 220000, "xuHuong": "tang", "vung": "", "ghiChu": "Mực câu đêm, còn trong được giá nhất" },
+    { "ten": "Mực nang",            "thap": 100000, "cao": 180000, "xuHuong": "on",   "vung": "", "ghiChu": "Con to trên nửa ký được giá hơn" },
+    { "ten": "Tôm sú biển",         "thap": 250000, "cao": 450000, "xuHuong": "tang", "vung": "", "ghiChu": "Loại 20–30 con một ký, còn sống giá cao" },
+    { "ten": "Ghẹ xanh",            "thap": 250000, "cao": 450000, "xuHuong": "tang", "vung": "", "ghiChu": "Ghẹ chắc thịt, còn sống mới được giá này" },
+    { "ten": "Cá hố",               "thap": 60000,  "cao": 120000, "xuHuong": "on",   "vung": "", "ghiChu": "Cá dài 70–90 cm, thân sáng bạc là loại 1" },
+    { "ten": "Cá bạc má",           "thap": 40000,  "cao": 60000,  "xuHuong": "tang", "vung": "Nghệ An, miền Trung", "ghiChu": "Thương lái mua ngay tại cảng" },
+    { "ten": "Cá trích",            "thap": 10000,  "cao": 20000,  "xuHuong": "on",   "vung": "", "ghiChu": "" }
+  ]
+}

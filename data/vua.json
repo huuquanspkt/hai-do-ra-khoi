@@ -1,0 +1,11 @@
+{
+  "ghiChu": "Vựa, cơ sở thu mua có đăng tin công khai — gọi hỏi cho chắc trước khi bán. DANH SÁCH MẪU, cần thay bằng dữ liệu thật đã xác minh. Bà con thêm mối quen của mình ở mục 'Mối quen'.",
+  "danhSach": [
+    { "loai": "Vựa hải sản",     "ten": "Vựa cá Tam Quan (mẫu)",        "tinh": "Gia Lai",    "diaChi": "Cảng cá Tam Quan, Hoài Nhơn",            "sdt": "",  "thuMua": "cá ngừ, cá thu, mực" },
+    { "loai": "Chợ đầu mối",     "ten": "Chợ cá Quy Nhơn (mẫu)",        "tinh": "Gia Lai",    "diaChi": "Cảng cá Quy Nhơn",                       "sdt": "",  "thuMua": "cá nục, cá cơm, cá ngừ" },
+    { "loai": "Cơ sở thu mua",   "ten": "Thu mua hải sản Sa Huỳnh (mẫu)","tinh": "Quảng Ngãi", "diaChi": "Cảng Sa Huỳnh, Đức Phổ",                 "sdt": "",  "thuMua": "cá, mực, ghẹ" },
+    { "loai": "Vựa hải sản",     "ten": "Vựa Hòn Rớ (mẫu)",             "tinh": "Khánh Hòa",  "diaChi": "Cảng cá Hòn Rớ, Nha Trang",              "sdt": "",  "thuMua": "cá ngừ đại dương, cá thu, mực" },
+    { "loai": "Nhà máy",         "ten": "Nhà máy chế biến Phan Thiết (mẫu)", "tinh": "Lâm Đồng", "diaChi": "Cảng cá Phan Thiết",                  "sdt": "",  "thuMua": "cá nục, cá cơm, mực" },
+    { "loai": "Chợ đầu mối",     "ten": "Chợ cá Thọ Quang (mẫu)",       "tinh": "Đà Nẵng",    "diaChi": "Âu thuyền Thọ Quang, Sơn Trà",           "sdt": "",  "thuMua": "cá, mực, tôm, ghẹ" }
+  ]
+}

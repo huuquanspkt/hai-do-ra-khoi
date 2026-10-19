@@ -5,7 +5,7 @@
 //   haido-o-ban-do-v1 : ô bản đồ (tile) — không xoá khi cập nhật app
 //   (dự báo thời tiết do app tự lưu bằng localStorage, không qua đây)
 // =====================================================================
-const VO = "haido-vo-v2";
+const VO = "haido-vo-v3";
 const O_BAN_DO = "haido-o-ban-do-v1";
 const TOI_DA_O = 20000;
 
@@ -13,9 +13,11 @@ const TOI_DA_O = 20000;
 const VO_BAT_BUOC = [
   "./", "./index.html", "./css/app.css",
   "./js/app.js", "./js/ban-do.js", "./js/cau-hinh.js", "./js/dinh-vi.js", "./js/giao-dien.js",
-  "./js/giong-noi.js", "./js/hang-hai.js", "./js/kho.js", "./js/thoi-tiet.js",
-  "./data/ranh-gioi.json", "./data/dia-danh-ngam.json", "./data/khu-tru-bao.json",
-  "./data/den-bien.json", "./data/dia-danh-lon.json", "./data/cang.json",
+  "./js/giong-noi.js", "./js/hang-hai.js", "./js/kho.js", "./js/kho-lon.js", "./js/thoi-tiet.js",
+  "./js/luoi-thoi-tiet.js", "./js/lop-mau.js", "./js/ngu-truong.js", "./js/con-nuoc.js", "./js/sen-bien.js", "./js/trang.js",
+  "./data/ranh-gioi.json", "./data/dia-danh-ngam.json", "./data/khu-tru-bao.json", "./data/den-bien.json",
+  "./data/dia-danh-lon.json", "./data/cang.json", "./data/khu-bao-ton.json", "./data/tram-con-nuoc.json",
+  "./data/gia-ca.json", "./data/vua.json", "./data/cua-hang.json",
   "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js",
 ];

@@ -1,0 +1,19 @@
+{
+  "ghiChu": [
+    "Khu bảo tồn biển và vùng cấm/hạn chế đánh bắt. Danh mục chính thức: quy hoạch 16 khu bảo tồn biển (nay mở rộng) của Bộ NN&PTNT / Bộ NN&MT.",
+    "Bản mẫu vẽ mỗi khu bằng một VÒNG TRÒN bán kính gần đúng quanh tâm — chỉ để hình dung. Ranh thật là đa giác theo quyết định thành lập, cần lấy từ Chi cục Thủy sản."
+  ],
+  "danhSach": [
+    { "ten": "Khu bảo tồn biển Cù Lao Chàm",  "tinh": "Đà Nẵng",    "lat": 15.95, "lon": 108.52, "banKinhKm": 9,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Lý Sơn",       "tinh": "Quảng Ngãi", "lat": 15.40, "lon": 109.12, "banKinhKm": 8,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Vũng Rô",      "tinh": "Đắk Lắk",    "lat": 12.86, "lon": 109.42, "banKinhKm": 5,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Hòn Mun (Nha Trang)", "tinh": "Khánh Hòa", "lat": 12.17, "lon": 109.30, "banKinhKm": 7, "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Núi Chúa",     "tinh": "Khánh Hòa",  "lat": 11.72, "lon": 109.20, "banKinhKm": 7,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Hòn Cau",      "tinh": "Lâm Đồng",   "lat": 11.23, "lon": 108.83, "banKinhKm": 7,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Côn Đảo",      "tinh": "TP.HCM",     "lat": 8.70,  "lon": 106.63, "banKinhKm": 12, "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Phú Quốc",     "tinh": "An Giang",   "lat": 10.05, "lon": 104.05, "banKinhKm": 12, "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Cồn Cỏ",       "tinh": "Quảng Trị",  "lat": 17.16, "lon": 107.34, "banKinhKm": 5,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Bạch Long Vĩ", "tinh": "Hải Phòng",  "lat": 20.13, "lon": 107.72, "banKinhKm": 8,  "loai": "bao-ton" },
+    { "ten": "Khu bảo tồn biển Cát Bà",       "tinh": "Hải Phòng",  "lat": 20.75, "lon": 107.05, "banKinhKm": 8,  "loai": "bao-ton" }
+  ]
+}

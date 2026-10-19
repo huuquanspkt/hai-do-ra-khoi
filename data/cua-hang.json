@@ -1,0 +1,19 @@
+{
+  "ghiChu": "Cửa hàng vật tư tàu cá — DANH SÁCH MẪU để thấy cách sắp xếp. Giá: liên hệ báo giá.",
+  "danhMuc": ["Máy & động cơ", "Điện tử hàng hải", "Ngư cụ", "Dầu nhớt & nhiên liệu", "Đá & bảo quản", "Nhu yếu phẩm", "An toàn", "Phụ tùng", "Khác"],
+  "danhSach": [
+    { "ten": "Máy lọc dầu diesel SF50 / SF300B",        "danhMuc": "Máy & động cơ",        "noiBan": "Khánh Hòa" },
+    { "ten": "Máy lọc nước biển SEA-40 / SEA250",        "danhMuc": "Máy & động cơ",        "noiBan": "Khánh Hòa" },
+    { "ten": "Giám sát hành trình (VMS) có kết nối vệ tinh", "danhMuc": "Điện tử hàng hải", "noiBan": "Khánh Hòa" },
+    { "ten": "Máy định vị hải đồ 10 inch",               "danhMuc": "Điện tử hàng hải",     "noiBan": "Đà Nẵng" },
+    { "ten": "Điện thoại vệ tinh hàng hải",              "danhMuc": "Điện tử hàng hải",     "noiBan": "Khánh Hòa" },
+    { "ten": "Lưới rê, lưới vây (đặt theo kích cỡ)",      "danhMuc": "Ngư cụ",               "noiBan": "Gia Lai" },
+    { "ten": "Dầu nhớt động cơ tàu cá",                  "danhMuc": "Dầu nhớt & nhiên liệu","noiBan": "Khánh Hòa" },
+    { "ten": "Phụ gia dầu diesel",                       "danhMuc": "Dầu nhớt & nhiên liệu","noiBan": "Khánh Hòa" },
+    { "ten": "Ắc quy tàu cá 220Ah",                      "danhMuc": "Phụ tùng",             "noiBan": "Khánh Hòa" },
+    { "ten": "Sơn tàu biển chống hà",                    "danhMuc": "Phụ tùng",             "noiBan": "Khánh Hòa" },
+    { "ten": "Phao bè cứu sinh, áo phao",                "danhMuc": "An toàn",              "noiBan": "Đà Nẵng" },
+    { "ten": "Máy làm đá vảy",                           "danhMuc": "Đá & bảo quản",        "noiBan": "Gia Lai" },
+    { "ten": "Nhật ký khai thác điện tử",                "danhMuc": "Khác",                 "noiBan": "Khánh Hòa" }
+  ]
+}
