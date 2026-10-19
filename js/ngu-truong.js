@@ -7,7 +7,7 @@
 // Kết quả: lưới ô 0,5° với muc 0 (thấp) / 1 (trung bình) / 2 (cao) và
 // danh sách "điểm nóng" (ô cao nhất, cách nhau > 1°).
 // =====================================================================
-import { LUOI, giaTriTai } from "./luoi-thoi-tiet.js";
+import { LUOI, giaTriTai, phanBien } from "./luoi-thoi-tiet.js";
 
 export const BUOC_O = 0.5;
 
@@ -18,6 +18,7 @@ export function tinhChiSoCa(goi, k) {
   const o = [];
   for (let lat = LUOI.latMin + BUOC_O / 2; lat < LUOI.latMax; lat += BUOC_O) {
     for (let lon = LUOI.lonMin + BUOC_O / 2; lon < LUOI.lonMax; lon += BUOC_O) {
+      if (phanBien(goi, lat, lon) < 0.5) continue; // đất liền / sát bờ
       const sst = giaTriTai(goi, "sea_surface_temperature", k, lat, lon);
       if (isNaN(sst)) continue; // đất liền
       // 1) Front nhiệt: chênh lệch nhiệt với 4 ô xung quanh (°C / 0,5°)

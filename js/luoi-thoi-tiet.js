@@ -111,3 +111,18 @@ export function giaTriTai(goi, bien, k, lat, lon) {
   const w = ds.reduce((s, x) => s + x[1], 0);
   return ds.reduce((s, x) => s + x[0] * x[1], 0) / w;
 }
+
+/**
+ * Phần "biển" quanh một điểm (0–1): trọng số các mốc lưới lân cận có sóng
+ * (Open-Meteo trả null cho mốc trên đất liền). Dùng làm mặt nạ đất liền:
+ * < 0,5 coi như trên bờ, không vẽ lớp biển / ô cá ở đó.
+ */
+export function phanBien(goi, lat, lon) {
+  const m = goi.lop.wave_height; if (!m) return 1;
+  const n = LUOI.soDiem, dLat = (LUOI.latMax - LUOI.latMin) / (n - 1), dLon = (LUOI.lonMax - LUOI.lonMin) / (n - 1);
+  const fi = (lat - LUOI.latMin) / dLat, fj = (lon - LUOI.lonMin) / dLon;
+  if (fi < 0 || fj < 0 || fi > n - 1 || fj > n - 1) return 0;
+  const i0 = Math.min(Math.floor(fi), n - 2), j0 = Math.min(Math.floor(fj), n - 2), ti = fi - i0, tj = fj - j0;
+  const co = (i, j) => { const x = m[i * n + j][0]; return x !== null && !isNaN(x); };
+  return (co(i0, j0) ? (1 - ti) * (1 - tj) : 0) + (co(i0, j0 + 1) ? (1 - ti) * tj : 0) + (co(i0 + 1, j0) ? ti * (1 - tj) : 0) + (co(i0 + 1, j0 + 1) ? ti * tj : 0);
+}

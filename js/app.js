@@ -20,7 +20,7 @@ import * as CN from "./con-nuoc.js";
 import * as SB from "./sen-bien.js";
 import * as TR from "./trang.js";
 
-const PHIEN_BAN = "2026-10-19 · bản mẫu 2";
+const PHIEN_BAN = "2026-10-19 · bản mẫu 2.1";
 const $ = GD.$, esc = GD.esc;
 
 // ---------------------------------------------------------------------
@@ -127,8 +127,9 @@ function veLai() {
 
   // Dải dưới: thu gọn khi đang chạy hoặc đang bật lớp màu
   $("dai-duoi").classList.toggle("gon", S.dangChay);
-  $("bang-song-gio").hidden = S.dangChay || !!S.lopMau;
-  $("thanh-thoi-gian").hidden = !S.lopMau || S.dangChay;
+  const coLopMau = !!S.lopMau || (S.caiDat.nen === "nhiet-bien" && !!S.luoi); // lớp màu hoặc nền nước nóng lạnh
+  $("bang-song-gio").hidden = S.dangChay || coLopMau;
+  $("thanh-thoi-gian").hidden = !coLopMau || S.dangChay;
   $("chu-giai-ca").hidden = !S.caBat;
 
   // Gói ngoại tuyến
@@ -236,7 +237,9 @@ async function dambaoLuoi(ep = false) {
   if (!navigator.onLine) { if (S.luoi) return true; GD.thanhBao("canh-bao", "Mất sóng — chưa có lưới dự báo cả vùng trong máy"); return false; }
   if (dangTaiLuoi) return false;
   dangTaiLuoi = true;
-  GD.moBang("Tải gió sóng cả vùng biển", `<p class="ghi-chu">Hỏi ${LTT.LUOI.soDiem * LTT.LUOI.soDiem} điểm trên Biển Đông, ${LTT.LUOI.soNgay} ngày. Mất khoảng 10–30 giây, tốn 2–4 MB.</p><div class="tien-trinh"><div id="luoi-tien" style="width:15%"></div></div><p class="ghi-chu" id="luoi-chu">Đang hỏi…</p>`);
+  // Bảng tiến trình thay chỗ bảng lớp → khi đóng phải trả lại trạng thái "đang mở nhóm lớp"
+  const khiDong = { onDong: () => { if (S.nhomLop) { S.nhomLop = null; veLai(); } } };
+  GD.moBang("Tải gió sóng cả vùng biển", `<p class="ghi-chu">Hỏi ${LTT.LUOI.soDiem * LTT.LUOI.soDiem} điểm trên Biển Đông, ${LTT.LUOI.soNgay} ngày. Mất khoảng 10–30 giây, tốn 2–4 MB.</p><div class="tien-trinh"><div id="luoi-tien" style="width:15%"></div></div><p class="ghi-chu" id="luoi-chu">Đang hỏi…</p>`, null, khiDong);
   try {
     let buoc = 0;
     const goi = await LTT.taiLuoi(chu => { buoc++; const c = $("luoi-chu"), t = $("luoi-tien"); if (c) c.textContent = chu; if (t) t.style.width = `${15 + buoc * 28}%`; });
@@ -244,7 +247,7 @@ async function dambaoLuoi(ep = false) {
     GD.dongBang(); dangTaiLuoi = false; return true;
   } catch (e) {
     dangTaiLuoi = false;
-    GD.moBang("Chưa tải được", `<p class="ghi-chu">Máy chủ dự báo bận hoặc mất sóng (${esc(e.message)}). Thử lại sau ít phút.</p>`);
+    GD.moBang("Chưa tải được", `<p class="ghi-chu">Máy chủ dự báo bận hoặc mất sóng (${esc(e.message)}). Thử lại sau ít phút.</p>`, null, khiDong);
     return !!S.luoi;
   }
 }
@@ -269,7 +272,7 @@ function capNhatLopMau() {
   const nhanNgay = d.toDateString() === homNay.toDateString() ? "Hôm nay" : d.toDateString() === new Date(homNay.getTime() + 86400e3).toDateString() ? "Mai" : `${["CN", "Th 2", "Th 3", "Th 4", "Th 5", "Th 6", "Th 7"][d.getDay()]} ${d.getDate()}/${d.getMonth() + 1}`;
   $("ttg-tieu-de").textContent = `${khoa ? LTT.LOP_MAU[khoa].ten : ""} · ${nhanNgay} · ${d.getHours()}h`;
   const truot = $("ttg-truot"); truot.max = moc.length - 1; truot.value = k;
-  const ngay = $("ttg-ngay"); if (!ngay.dataset.xong) { ngay.innerHTML = ""; const soMocNgay = 24 / LTT.LUOI.buocGio; for (let i = 0; i < moc.length; i += soMocNgay) { const dd = new Date(moc[i] + ":00"); const s = document.createElement("span"); s.textContent = i === 0 ? "Hôm nay" : i === soMocNgay ? "Mai" : `${["CN", "T2", "T3", "T4", "T5", "T6", "T7"][dd.getDay()]} ${dd.getDate()}/${dd.getMonth() + 1}`; ngay.appendChild(s); } ngay.dataset.xong = "1"; }
+  const ngay = $("ttg-ngay"); if (!ngay.dataset.xong) { ngay.innerHTML = ""; const soMocNgay = 24 / LTT.LUOI.buocGio; for (let i = 0; i < moc.length; i += soMocNgay) { const dd = new Date(moc[i] + ":00"); const s = document.createElement("span"); s.textContent = i === 0 ? "Nay" : i === soMocNgay ? "Mai" : ["CN", "T2", "T3", "T4", "T5", "T6", "T7"][dd.getDay()]; s.title = `${dd.getDate()}/${dd.getMonth() + 1}`; s.dataset.ngay = `${dd.getDate()}/${dd.getMonth() + 1}`; ngay.appendChild(s); } ngay.dataset.xong = "1"; }
   $("ttg-chu-giai").innerHTML = lopMau.htmlChuGiai();
 }
 async function batCa(bat) {
@@ -309,7 +312,10 @@ function noiNut() {
   $("the-tro").onclick = () => { if (S.tro) banDo.nhinToi(S.tro); else moBangDenDiem(); };
   $("nut-thong-tin").onclick = moBangThongTin;
   $("ttg-truot").oninput = e => { S.mocK = +e.target.value; capNhatLopMau(); };
-  $("ttg-tat").onclick = () => batLopMau(null);
+  $("ttg-tat").onclick = () => {
+    if (S.lopMau) batLopMau(null);
+    else if (S.caiDat.nen === "nhiet-bien") { S.caiDat.nen = "hai-do"; banDo.datNen("hai-do"); luu("cai-dat"); lopMau && lopMau.tat(); veLai(); }
+  };
   $("thanh-do-xoa").onclick = () => banDo.xoaDo();
   $("thanh-do-xong").onclick = tatDoKhoangCach;
   $("sen-bien-nut").onclick = senBienNghe;
@@ -412,7 +418,7 @@ function moBangLop(nhom) {
   S.nhomLop = nhom; veLai();
   GD.moBang(tieuDe, thanh + noiDung, b => {
     b.querySelectorAll("[data-nhom-bang]").forEach(x => x.onclick = () => moBangLop(x.dataset.nhomBang));
-    b.querySelectorAll("input[name=nen]").forEach(r => r.onchange = () => { S.caiDat.nen = r.value; banDo.datNen(r.value); luu("cai-dat"); if (r.value === "nhiet-bien") { dambaoLuoi().then(ok => { if (ok) capNhatLopMau(); }); } else if (lopMau && !S.lopMau) lopMau.tat(); });
+    b.querySelectorAll("input[name=nen]").forEach(r => r.onchange = () => { S.caiDat.nen = r.value; banDo.datNen(r.value); luu("cai-dat"); if (r.value === "nhiet-bien") { dambaoLuoi().then(ok => { if (ok) { capNhatLopMau(); veLai(); } }); } else { if (lopMau && !S.lopMau) lopMau.tat(); veLai(); } });
     b.querySelectorAll("input[data-lop]").forEach(c => c.onchange = () => { banDo.datLop(c.dataset.lop, c.checked); S.caiDat.lopBat = Object.keys(banDo.lop).filter(k => banDo.lopDangBat(k)); luu("cai-dat"); });
     b.querySelectorAll("input[data-mau]").forEach(c => c.onchange = () => { b.querySelectorAll("input[data-mau]").forEach(x => { if (x !== c) x.checked = false; }); batLopMau(c.checked ? c.dataset.mau : null); });
     const ca = b.querySelector("[data-ct=ca]"); if (ca) ca.onchange = () => batCa(ca.checked);

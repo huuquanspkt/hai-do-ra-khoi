@@ -3,7 +3,7 @@
 // (tô màu nội suy + mũi tên hướng), kèm thang màu chú giải.
 // Ảnh vẽ theo phép chiếu Mercator để khớp với nền bản đồ.
 // =====================================================================
-import { LUOI, LOP_MAU, giaTriTai } from "./luoi-thoi-tiet.js";
+import { LUOI, LOP_MAU, giaTriTai, phanBien } from "./luoi-thoi-tiet.js";
 import { capBeaufort } from "./hang-hai.js";
 import { HAI_LY } from "./cau-hinh.js";
 
@@ -21,8 +21,8 @@ function docMau(s) {
   return (c[s] = Array.from(ctx.getImageData(0, 0, 1, 1).data));
 }
 /** Màu tại giá trị v theo thang của lớp (nội suy tuyến tính giữa các mốc màu). */
-export function mauCua(lop, v) {
-  const [min, max] = lop.thang, mocs = lop.mau.map(docMau);
+export function mauCua(lop, v, thang) {
+  const [min, max] = thang || lop.thang, mocs = lop.mau.map(docMau);
   let t = (v - min) / (max - min); t = Math.max(0, Math.min(1, t));
   const p = t * (mocs.length - 1), i = Math.min(Math.floor(p), mocs.length - 2), f = p - i;
   return mocs[i].map((a, k) => a + (mocs[i + 1][k] - a) * f);
@@ -42,15 +42,18 @@ export class LopMau {
     const img = ctx.createImageData(RONG, CAO), d = img.data;
     const y0 = mercY(LUOI.latMin), y1 = mercY(LUOI.latMax);
     const heSo = khoa === "dong" ? 3600 / HAI_LY / 3.6 : 1; // dòng chảy API trả km/h → hải lý/giờ
+    const lopBien = /^(wave|ocean|sea_)/.test(lop.bien); // lớp biển: che phần đất liền
+    this.thang = khoa === "nhiet-bien" ? this._thangTuDong(goi, lop.bien, k) : lop.thang; // nước nóng lạnh: thang co giãn theo số liệu để lộ ranh nước
     for (let py = 0; py < CAO; py++) {
       const lat = latTuMercY(y1 - (y1 - y0) * (py + .5) / CAO);
       for (let px = 0; px < RONG; px++) {
         const lon = LUOI.lonMin + (LUOI.lonMax - LUOI.lonMin) * (px + .5) / RONG;
-        let v = giaTriTai(goi, lop.bien, k, lat, lon);
         const o = (py * RONG + px) * 4;
+        if (lopBien && phanBien(goi, lat, lon) < 0.35) { d[o + 3] = 0; continue; }
+        let v = giaTriTai(goi, lop.bien, k, lat, lon);
         if (isNaN(v)) { d[o + 3] = 0; continue; }
         v *= heSo;
-        const [r, g, b, a] = mauCua(lop, v);
+        const [r, g, b, a] = mauCua(lop, v, this.thang);
         d[o] = r; d[o + 1] = g; d[o + 2] = b; d[o + 3] = Math.round(a * .72);
       }
     }
@@ -83,10 +86,20 @@ export class LopMau {
   }
   tat() { if (this.anh && this.banDo.map.hasLayer(this.anh)) this.banDo.map.removeLayer(this.anh); this.khoa = null; }
 
+  /** Thang màu co giãn: lấy khoảng 2%–98% số liệu biển tại mốc k, tối thiểu rộng 1,5 đơn vị. */
+  _thangTuDong(goi, bien, k) {
+    const m = goi.lop[bien]; if (!m) return LOP_MAU[this.khoa].thang;
+    const v = m.map(h => h[k]).filter(x => x !== null && !isNaN(x)).sort((a, b) => a - b);
+    if (v.length < 4) return LOP_MAU[this.khoa].thang;
+    let min = v[Math.floor(v.length * .02)], max = v[Math.ceil(v.length * .98) - 1];
+    if (max - min < 1.5) { const g = (min + max) / 2; min = g - .75; max = g + .75; }
+    return [Math.floor(min * 2) / 2, Math.ceil(max * 2) / 2];
+  }
+
   /** HTML thang màu chú giải cho lớp đang bật. */
   htmlChuGiai() {
     if (!this.khoa) return "";
-    const lop = LOP_MAU[this.khoa], [min, max] = lop.thang;
+    const lop = LOP_MAU[this.khoa], [min, max] = this.thang || lop.thang;
     const dai = lop.mau.map(m => m.startsWith("rgba(255,255,255,0") ? "rgba(255,255,255,0)" : m).join(",");
     const nhan = this.khoa === "gio" ? `cấp ${capBeaufort(min)} → cấp ${capBeaufort(max)}` : `${min} → ${max} ${lop.don}`;
     return `<div class="chu-giai"><b>${lop.ten}</b><span class="dai" style="background:linear-gradient(to right,${dai})"></span><span>${nhan}</span></div>`;

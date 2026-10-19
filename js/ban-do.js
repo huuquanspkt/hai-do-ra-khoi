@@ -121,7 +121,7 @@ export class BanDo {
     (khuBaoTon?.danhSach || []).forEach(k => L.circle([k.lat, k.lon], { radius: k.banKinhKm * 1000, color: "#2e7d32", weight: 2, dashArray: "6 5", fillColor: "#66bb6a", fillOpacity: .15 })
       .bindTooltip(`<b>${k.ten}</b><br><small>${k.tinh} · cấm/hạn chế khai thác · tham khảo</small>`, { sticky: true }).addTo(this.lop["khu-bao-ton"].lop));
     (tramConNuoc?.danhSach || []).forEach(t => {
-      L.marker([t.lat, t.lon], { icon: icon(BIEU_TUONG.tram, 24, 24, 12, 12) }).on("click", () => onTram && onTram(t)).addTo(this.lop["tram-con-nuoc"].lop);
+      L.marker([t.lat, t.lon], { icon: icon(BIEU_TUONG.tram, 24, 24, 12, 12), zIndexOffset: 600, title: `Con nước ${t.ten}` }).on("click", () => onTram && onTram(t)).addTo(this.lop["tram-con-nuoc"].lop);
       L.marker([t.lat, t.lon], { interactive: false, keyboard: false, icon: L.divIcon({ className: "nhan-ban-do", iconSize: null, iconAnchor: [-14, 8], html: `<span class="nhan-tram">${t.ten}</span>` }) }).addTo(this.lop["tram-con-nuoc"].lop);
     });
   }

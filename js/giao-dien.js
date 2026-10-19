@@ -14,6 +14,8 @@ export function thanhBao(muc, chu) {
   b.className = "thanh-bao" + (muc === "tot" ? "" : " " + muc);
   $("thanh-bao-dau").textContent = muc === "tot" ? "✓" : muc === "nguy-hiem" ? "⚠" : "!";
   $("thanh-bao-chu").textContent = chu;
+  // Các khối dưới (thẻ vị trí, bảng chạy) xếp theo chiều cao thật của thanh báo
+  requestAnimationFrame(() => document.documentElement.style.setProperty("--cao-bao", `${b.offsetHeight + 8}px`));
 }
 
 // ---------- Thẻ vị trí ----------

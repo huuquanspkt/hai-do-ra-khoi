@@ -61,7 +61,7 @@ input, select, textarea { font: inherit; }
 .thanh-bao.nguy-hiem { background: var(--nguy-hiem-nen); color: var(--nguy-hiem); }
 
 /* ---------- Bảng dẫn đường ---------- */
-.bang-chay { position: fixed; z-index: 1010; top: calc(var(--sat) + 62px); left: calc(var(--sal) + var(--le)); right: calc(var(--sar) + var(--le)); background: rgba(255,255,255,.96); border-radius: 20px; padding: 10px 12px 12px; box-shadow: 0 4px 16px rgba(0,0,0,.22); display: flex; flex-direction: column; gap: 8px; touch-action: none; }
+.bang-chay { position: fixed; z-index: 1010; top: calc(var(--sat) + 8px + var(--cao-bao, 54px)); left: calc(var(--sal) + var(--le)); right: calc(var(--sar) + var(--le)); background: rgba(255,255,255,.96); border-radius: 20px; padding: 10px 12px 12px; box-shadow: 0 4px 16px rgba(0,0,0,.22); display: flex; flex-direction: column; gap: 8px; touch-action: none; }
 .bang-chay .dau-bang { display: flex; align-items: center; gap: 8px; cursor: grab; }
 .bang-chay .dau-bang svg { width: 22px; height: 22px; stroke: var(--xanh-dam); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .bang-chay .dau-bang b { font-size: 17px; color: var(--xanh-dam); }
@@ -74,8 +74,8 @@ input, select, textarea { font: inherit; }
 .bang-chay-thu svg { width: 22px; height: 22px; stroke: var(--xanh-dam); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---------- Thẻ vị trí ---------- */
-.the-vi-tri { position: fixed; z-index: 1000; top: calc(var(--sat) + 62px); left: calc(var(--sal) + var(--le)); max-width: calc(100% - var(--rong-nut) - var(--le) * 3); background: rgba(255,255,255,.95); border-radius: 16px; padding: 4px 6px; box-shadow: 0 2px 10px rgba(0,0,0,.18); display: flex; flex-direction: column; }
-.the-vi-tri.day-xuong { top: calc(var(--sat) + 240px); }
+.the-vi-tri { position: fixed; z-index: 1000; top: calc(var(--sat) + 8px + var(--cao-bao, 54px)); left: calc(var(--sal) + var(--le)); max-width: calc(100% - var(--rong-nut) - var(--le) * 3); background: rgba(255,255,255,.95); border-radius: 16px; padding: 4px 6px; box-shadow: 0 2px 10px rgba(0,0,0,.18); display: flex; flex-direction: column; }
+.the-vi-tri.day-xuong { top: calc(var(--sat) + 186px + var(--cao-bao, 54px)); }
 .the-vi-tri .o-the { border: 0; background: none; text-align: left; display: grid; grid-template-columns: 22px 38px 1fr; gap: 0 6px; align-items: center; padding: 5px 6px; border-radius: 10px; }
 .the-vi-tri .o-the:active { background: var(--bot-bien); }
 .the-vi-tri .bieu-tuong { font-size: 15px; }
